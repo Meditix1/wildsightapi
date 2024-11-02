@@ -2,7 +2,7 @@ const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const routes = require('../src/routes');
+const routes = require('./routes.js');
 
 const app = express();
 app.use(cors());
