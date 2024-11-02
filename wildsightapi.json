@@ -1,0 +1,327 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Wildlife Sightings API",
+        "description": "An API that allows users to report and track wildlife sightings, contributing to a database of local biodiversity. Users can submit sightings with details like species, location, time, and photos. The API can also provide statistics and visualizations on sightings over time.",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Wildlife API Support",
+            "url": "https://wildlifeapi.example.com/support",
+            "email": "support@wildlifeapi.example.com"
+        }
+    },
+    "tags": [
+        {
+            "name": "Sightings",
+            "description": "Operations related to wildlife sightings"
+        },
+        {
+            "name": "Statistics",
+            "description": "Operations related to statistics and analytics of sightings"
+        }
+    ],
+    "paths": {
+        "/sightings": {
+            "post": {
+                "operationId": "submitSighting",
+                "tags": [
+                    "Sightings"
+                ],
+                "summary": "Submit a new wildlife sighting",
+                "description": "Allows users to report a new wildlife sighting with details such as species, location, time, and photos.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Sighting"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sighting submitted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sighting"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getRecentSightings",
+                "tags": [
+                    "Sightings"
+                ],
+                "summary": "Retrieve a list of recent sightings",
+                "description": "Fetches a list of recent wildlife sightings reported by users.",
+                "responses": {
+                    "200": {
+                        "description": "A list of recent sightings",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Sighting"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/sightings/{species}": {
+            "get": {
+                "operationId": "getSightingsBySpecies",
+                "tags": [
+                    "Sightings"
+                ],
+                "summary": "Get sightings for a specific species",
+                "description": "Retrieves all reported sightings for a specific species.",
+                "parameters": [
+                    {
+                        "name": "species",
+                        "in": "path",
+                        "required": true,
+                        "description": "The species to filter sightings by",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of sightings for the specified species",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Sighting"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Species not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/statistics": {
+            "get": {
+                "operationId": "getSightingsStatistics",
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Retrieve statistics about sightings",
+                "description": "Provides statistics such as the most common species and hotspots for wildlife sightings.",
+                "responses": {
+                    "200": {
+                        "description": "Statistics about wildlife sightings",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Statistics"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/sightings/{id}": {
+            "delete": {
+                "operationId": "deleteSighting",
+                "tags": [
+                    "Sightings"
+                ],
+                "summary": "Remove a sighting report",
+                "description": "Deletes a specific wildlife sighting report by its ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "The ID of the sighting to delete",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sighting deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "text": "deleted !"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Sighting not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/hi": {
+            "get": {
+                "operationId": "hi",
+                "tags": [
+                    "Sightings"
+                ],
+                "summary": "Test",
+                "description": "Test",
+                "responses": {
+                    "200": {
+                        "description": "Hi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Statistics"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "bye"
+                    },
+                    "404": {
+                        "description": "bye"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Sighting": {
+                "type": "object",
+                "required": [
+                    "species",
+                    "location",
+                    "time"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier for the sighting",
+                        "example": "sighting-12345"
+                    },
+                    "species": {
+                        "type": "string",
+                        "description": "The species of the wildlife sighted",
+                        "example": "Bald Eagle"
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location where the sighting occurred",
+                        "example": "Yellowstone National Park"
+                    },
+                    "time": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "The date and time of the sighting",
+                        "example": "2023-10-01T14:30:00Z"
+                    },
+                    "photos": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "URL of a photo taken during the sighting",
+                            "example": "https://example.com/photos/sighting-12345.jpg"
+                        }
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Statistics": {
+                "type": "object",
+                "properties": {
+                    "mostCommonSpecies": {
+                        "type": "string",
+                        "description": "The species that has been sighted the most",
+                        "example": "Bald Eagle"
+                    },
+                    "hotspots": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "description": "Locations where sightings are most frequently reported",
+                            "example": "Yellowstone National Park"
+                        }
+                    },
+                    "totalSightings": {
+                        "type": "integer",
+                        "description": "Total number of sightings reported",
+                        "example": 150
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "Error code",
+                        "example": 400
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Error message",
+                        "example": "Invalid input"
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    }
+}
