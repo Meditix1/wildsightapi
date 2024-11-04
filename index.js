@@ -13,5 +13,5 @@ app.use(bodyParser.json());
 app.use('/', routes);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on ${BASE_URL}`);
+    console.log(`Server is running on ${BASE_URL}/${PORT}`);
 });
