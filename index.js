@@ -12,6 +12,13 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/', routes);
 
+
+// Error handling middleware should be added here
+app.use((err, req, res, next) => {
+    console.error(err.stack); // Log the error stack
+    res.status(500).send('Something went wrong!'); // Respond with a 500 status
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${BASE_URL}/${PORT}`);
 });
