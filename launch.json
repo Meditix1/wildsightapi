@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Program",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": ["<node_internals>/**"],
+            "program": "${workspaceFolder}/index.js", // Path to your entry file in the root folder
+            "env": {
+                "PORT": "3000", // Set your port if needed
+                "HOST": "https://default-blackbird-rporaxgmail-coms-organization-e6504-0.blackbird-relay.a8r.io" // Your Blackbird URL
+            }
+        },
+        {
+            "name": "Attach to Remote",
+            "type": "node",
+            "request": "attach",
+            "port": 9229, // Default Node.js debug port
+            "restart": true,
+            "protocol": "inspector",
+            "host": "${env:HOST}" // This will use the HOST environment variable
+        }
+    ]
+}
