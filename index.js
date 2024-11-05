@@ -4,7 +4,7 @@ const cors = require('cors');
 const routes = require('./routes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 const BASE_URL = process.env.BASE_URL || `https://default-blackbird-rporaxgmail-coms-organization-e6504-0.blackbird-relay.a8r.io/wildlsightapi`;
 
 
